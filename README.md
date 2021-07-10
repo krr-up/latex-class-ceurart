@@ -1,3 +1,3 @@
-# latex-style-ceurart
+# latex-class-ceurart
 
-This archives style files provided by ASPOCP
+This archives class files provided by CEURART used in ASPOCP.
