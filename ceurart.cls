@@ -13,7 +13,7 @@
 %
 % The Current Maintainer of this work is Dmitry S. Kulyabov.
 % The code was originally based on 'CAS Bundle' code.
-% 
+%
 
 \def\RCSfile{ceurart}%
 \def\RCSversion{0.4.0}%
@@ -21,7 +21,7 @@
 \NeedsTeXFormat{LaTeX2e}[1995/12/01]
 \ProvidesClass{\RCSfile}[\RCSdate, \RCSversion: Typesetting articles for CEUR Workshop Proceedings (CEUR-WS.org)]
 
-\RequirePackage{expl3,xparse}
+\RequirePackage{expl3,xparse,ifpdf}
 \@ifundefined{regex_match:nnTF}{\RequirePackage{l3regex}}{}
 
 \ExplSyntaxOn
@@ -94,7 +94,7 @@
 
 %% PDF/A support
 
-\ifpdftex
+\ifpdf
 \RequirePackage{cmap}
 \fi
 
@@ -252,11 +252,11 @@
   % \gdef\@pdfsubject{Complex ~CEUR ~Content}
 
   %% PDF/A
-  
+
   % List of supported metadata fields
-  
+
   % General information:
-  
+
   % \Author           - the document's human author. Separate multiple authors with \sep.
   % \Title            - the document's title.
   % \Keywords         - list of keywords, separated with \sep.
@@ -270,7 +270,7 @@
   % \Copyrighted      - 'True' if the document is copyrighted, and
   % 'False' if it isn't. This is automatically set to 'True' if either
   % \Copyright or \CopyrightURL is specified, but can be overridden.
-  
+
   % Publication information:
 
   % \PublicationType   - The type of publication. If defined, must be
@@ -295,7 +295,7 @@
   % \CoverDate         - Date on the cover of the journal issue, in a
   % format suitable for storing in a database field
   % with a 'date' data type.
-  
+
   \bool_if:NTF \g_ceur_pdfx_bool
   {
     \xmpdatawrite{Title}{\casprelimstitle}
@@ -328,7 +328,7 @@
       citecolor={hscolor},
       filecolor={hscolor},
       menucolor={hscolor},
-    }    
+    }
   }
 }
 
@@ -1211,10 +1211,10 @@
   \ResetMarks
   \tl_if_blank:nTF { #3 } { }
   { \keys_set:nn { ceur / author } { #3 } }
-  % 
+  %
   \int_gincr:N \g_ceur_au_int
   \tex_gdef:D \theau@ { \int_use:N \g_ceur_au_int }
-  % 
+  %
   \seq_gput_right:Nn \g_ceur_prelimsau_seq { #2 }
   \bool_if:NTF \l_ceur_au_collab_bool
   { \seq_gput_right:cn { g_ceur_clau\int_use:N \g_ceur_augr_int _seq } }
@@ -1259,10 +1259,10 @@
     { ,\c_space_token \l_ceur_au_degree_tl }
     \tl_if_empty:NF \l_ceur_au_role_tl
     { \c_space_token (\l_ceur_au_role_tl) }
-    % 
+    %
     \ResetMarks
   }
-  % 
+  %
   \bool_if:NT \l_ceur_au_deceased_bool
   {
     \seq_gput_right:Nn \g_ceur_maltese_seq
@@ -1310,7 +1310,7 @@
   \csgdef { __short_authors_tmp } { #2 }
   \int_compare:nNnTF { \theau@ } = { 1 } {
     \xappto \__short_authors: { \__short_authors_tmp }
-  }{ 
+  }{
     \int_compare:nNnTF { \theau@ } < { \g_num_short_authors + 1 } {
       \xappto \__short_authors: { , ~ \__short_authors_tmp }
     }{
@@ -1319,7 +1319,7 @@
       }{ }
     }
   }
-  % 
+  %
   \@eadauthor={#2}
   \pdfstringdef\__info_au: { #2 }
   \int_compare:nNnTF { \theau@ } < { 4 }
@@ -1645,7 +1645,7 @@
   % \hsize = .65 \textwidth \parindent \z@
   \group_begin:
   % Check if abstract exist
-  \file_if_exist:nT { \jobname.abs } { 
+  \file_if_exist:nT { \jobname.abs } {
     \IfNoValueTF { #1 } {
     } { \tex_gdef:D \abstractname { #1 } }
     \parindent \z@
@@ -2007,7 +2007,7 @@
   \group_begin:
   \@title
   \group_end:
-  % 
+  %
   \bool_if:NTF \g_ceur_blind_bool {
     \vspace* { 10 mm }
   } {
@@ -2212,7 +2212,7 @@
 %   \renewcommand{\footrulewidth}{\z@}%
 %   \fancyfoot[R]{\hffont Page~ \thepage {} ~of~ \lastpage}%
 %   \fancyfoot[L]{\hffont \__short_authors: :~ { \rmfamily \itshape CEUR~Workshop~Proceedings}}%
-% }  
+% }
 
 % \fancypagestyle{standard}{%
 %   \fancyhf{}%
@@ -2221,7 +2221,7 @@
 %   \fancyfoot[R]{\hffont Page~ \thepage {} ~of~ \lastpage}%
 %   \fancyfoot[L]{\hffont \__short_authors: :~ { \rmfamily \itshape CEUR~Workshop~Proceedings}}%
 %   \fancyhead[L]{\hffont \__short_title:}%
-% }  
+% }
 
 \cs_new:Npn \__first_footerline: {
   \group_begin:
@@ -2508,12 +2508,12 @@
   \dim_add:Nn \l_tmpa_dim { \box_dp:N \g_tmpa_box }
   \fp_set:Nn  \l_tmpa_fp  { \dim_to_fp:n { \l_tmpa_dim } }
   \fp_set:Nn  \l_tmpb_fp  { \dim_to_fp:n { \baselineskip } }
-  % 
+  %
   \fp_set:Nn \l_wrap_figlines_fp
   { \fp_eval:n { ( \l_tmpa_fp / \l_tmpb_fp )  + .5 } }
   \int_set:Nn \l_wrap_figlines_int
   { \fp_to_int:N \l_wrap_figlines_fp }
-  % 
+  %
   \iow_term:x { ...~wr-fig:~[BL:~\the\baselineskip] ~ ...}
   \iow_term:x { ...~wr-fig:~[LINE-FP:~ \fp_use:N \l_wrap_figlines_fp]~ ...}
   \iow_term:x { ...~wr-fig:~[LINE-INT:~ \int_use:N \l_wrap_figlines_int]~ ...}
@@ -2822,7 +2822,7 @@
 %% Fonts
 %%
 
-\ifpdftex
+\ifpdf
 \RequirePackage[T1]{fontenc}
 \fi
 
