@@ -1,7 +1,3 @@
-# latex-class-ceurart
-
-This archives class files provided by CEURART used in ASPOCP.
-
 # LaTeX user template and guide
 
 To compile user guide:
@@ -23,3 +19,4 @@ or
 use the makefile:
 
 `make`
+

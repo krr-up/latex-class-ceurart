@@ -15,15 +15,9 @@ twocolumn,
 %%
 %% Minted listings support 
 %% Need pygment <http://pygments.org/> <http://pypi.python.org/pypi/Pygments>
-\usepackage{minted}
+\usepackage{listings}
 %% auto break lines
-\setminted{breaklines=true}
-
-%prevent overflowing URLs; suggested by Franck in
-% https://tex.stackexchange.com/questions/636114/how-can-i-prevent-urls-in-an-eprint-field-from-overflowing-in-the-references-i/636172#636172
-\def\UrlBreaks{\do\/\do-}
-\hypersetup{breaklinks=true}
-\urlstyle{same}
+\lstset{breaklines=true}
 
 %%
 %% end of the preamble, start of the body of the document source.
@@ -32,19 +26,23 @@ twocolumn,
 %%
 %% Rights management information.
 %% CC-BY is default license.
-\copyrightyear{2021}
+\copyrightyear{2022}
 \copyrightclause{Copyright for this paper by its authors.
   Use permitted under Creative Commons License Attribution 4.0
   International (CC BY 4.0).}
 
 %%
 %% This command is for the conference information
-\conference{Woodstock'21: Symposium on the irreproducible science,
-  June 07--11, 2021, Woodstock, NY}
+\conference{Woodstock'22: Symposium on the irreproducible science,
+  June 07--11, 2022, Woodstock, NY}
 
 %%
 %% The "title" command
 \title{A better way to format your document for CEUR-WS}
+
+\tnotemark[1]
+\tnotetext[1]{You can use this document as the template for preparing your
+  publication. We recommend using the latest version of the ceurart style.}
 
 %%
 %% The "author" command and its associated commands are used to define
@@ -54,6 +52,8 @@ orcid=0000-0002-0877-7063,
 email=kulyabov-ds@rudn.ru,
 url=https://yamadharma.github.io/,
 ]
+\cormark[1]
+\fnmark[1]
 \address[1]{Peoples' Friendship University of Russia (RUDN University),
   6 Miklukho-Maklaya St, Moscow, 117198, Russian Federation}
 \address[2]{Joint Institute for Nuclear Research,
@@ -64,6 +64,7 @@ orcid=0000-0001-7116-9338,
 email=i.tiddi@vu.nl,
 url=https://kmitd.github.io/ilaria/,
 ]
+\fnmark[1]
 \address[3]{Vrije Universiteit Amsterdam, De Boelelaan 1105, 1081 HV Amsterdam, The Netherlands}
 
 \author[4]{Manfred Jeusfeld}[%
@@ -71,7 +72,12 @@ orcid=0000-0002-9421-8566,
 email=Manfred.Jeusfeld@acm.org,
 url=http://conceptbase.sourceforge.net/mjf/,
 ]
+\fnmark[1]
 \address[4]{University of Skövde, Högskolevägen 1, 541 28 Skövde, Sweden}
+
+%% Footnotes
+\cortext[1]{Corresponding author.}
+\fntext[1]{These authors contributed equally.}
 
 %%
 %% The abstract is a short summary of the work to be presented in the
@@ -89,7 +95,7 @@ url=http://conceptbase.sourceforge.net/mjf/,
 %% Keywords. The author(s) should pick words that accurately describe
 %% the work being presented. Separate the keywords with commas.
 \begin{keywords}
-  \LaTeX{} class \sep
+  LaTeX class \sep
   paper template \sep
   paper formatting \sep
   CEUR-WS
@@ -105,9 +111,7 @@ url=http://conceptbase.sourceforge.net/mjf/,
 CEUR-WS's article template provides a consistent \LaTeX{} style for
 use across CEUR-WS publications, and incorporates accessibility and
 metadata-extraction functionality. This document will explain the
-major features of the document class\footnote{You can use this
-  document as the template for preparing your publication. We
-  recommend using the latest version of the ceurart style.}.
+major features of the document class.
 
 If you are new to publishing with CEUR-WS, this document is a valuable
 guide to the process of preparing your work for publication.
@@ -146,15 +150,15 @@ vertical spacing between elements of your work --- is not allowed.
 There are a number of template
 parameters which modify some part of the \verb|ceurart| document class.
 This parameters are enclosed in square
-brackets and are a part of the {\verb|documentclass|} command:
-\begin{minted}{latex}
+brackets and are a part of the \verb|\documentclass| command:
+\begin{lstlisting}
   \documentclass[parameter]{ceurart}
-\end{minted}
+\end{lstlisting}
 
 Frequently-used parameters, or combinations of parameters, include:
 \begin{itemize}
-\item {\verb|twocolumn|}: Two column layout.
-\item {\verb|hf|}: Enable header and footer\footnote{You can enable
+\item \verb|twocolumn| : Two column layout.
+\item \verb|hf| : Enable header and footer\footnote{You can enable
     the display of page numbers in the final version of the entire
     collection. In this case, you should adhere to the end-to-end
     pagination of individual papers.}.
@@ -177,33 +181,37 @@ insert line breaks in your title.
 \verb|\title| command have the below options:
 \begin{itemize}
 \item \verb|title|: Document title. This is default option. 
-\begin{minted}{latex}
+\begin{lstlisting}
 \title[mode=title]{This is a title}
-\end{minted}
+\end{lstlisting}
 You can just omit it, like as follows:
-\begin{minted}{latex}
+\begin{lstlisting}
 \title{This is a title}
-\end{minted}
+\end{lstlisting}
 
 \item \verb|alt|: Alternate title.
-\begin{minted}{latex}
+\begin{lstlisting}
 \title[mode=alt]{This is a alternate title}
-\end{minted}
+\end{lstlisting}
 
 \item \verb|sub|: Sub title.
-\begin{minted}{latex}
+\begin{lstlisting}
 \title[mode=sub]{This is a sub title}
-\end{minted}
+\end{lstlisting}
+You can just use \verb|\subtitle| command, as follows:
+\begin{lstlisting}
+\subtitle{This is a sub title}
+\end{lstlisting}
 
 \item \verb|trans|: Translated title.
-\begin{minted}{latex}
+\begin{lstlisting}
 \title[mode=trans]{This is a translated title}
-\end{minted}
+\end{lstlisting}
 
 \item \verb|transsub|: Translated sub title.
-\begin{minted}{latex}
+\begin{lstlisting}
 \title[mode=transsub]{This is a translated sub title}
-\end{minted}
+\end{lstlisting}
 \end{itemize}
 
 \subsection{Authors and Affiliations}
@@ -216,21 +224,19 @@ possible. Include authors' e-mail addresses whenever possible.
 \verb|\author| command have the below options: 
 
 \begin{itemize}
-\item \verb|style|: Style of author name (chinese)
-\item \verb|prefix|: Prefix
-\item \verb|suffix|: Suffix
-\item \verb|degree|: Degree
-\item \verb|role|: Role
-\item \verb|orcid|: ORCID
-\item \verb|email|: E-mail
-\item \verb|url|: URL
+\item \verb|style| : Style of author name (chinese)
+\item \verb|prefix| : Prefix
+\item \verb|suffix| : Suffix
+\item \verb|degree| : Degree
+\item \verb|role| : Role
+\item \verb|orcid| : ORCID
+\item \verb|email| : E-mail
+\item \verb|url| : URL
 \end{itemize}
 
 Author names can have some kinds of marks and notes:
 \begin{itemize}
 \item affiliation mark: \verb|\author[<num>]|.
-% \item email: \verb|\ead{<email>}|,
-% \item url: \verb|\ead[url]{<url>}|.
 \end{itemize}
 
 The author names and affiliations could be formatted in two ways:
@@ -240,7 +246,7 @@ The author names and affiliations could be formatted in two ways:
 \end{enumerate}
 
 Author block example:
-\begin{minted}{latex}
+\begin{lstlisting}
 \author[1,2]{Author Name}[%
     prefix=Prof.,
     degree=D.Sc.,
@@ -252,7 +258,7 @@ Author block example:
 
 \address[1]{Affiliation #1}
 \address[2]{Affiliation #2}
-\end{minted}
+\end{lstlisting}
 
 \subsection{Abstract and Keywords}
 
@@ -260,32 +266,80 @@ Abstract shall be entered in an environment that starts
 with \verb|\begin{abstract}| and ends with
 \verb|\end{abstract}|. 
 
-\begin{minted}{latex}
+\begin{lstlisting}
 \begin{abstract}
   This is an abstract.
 \end{abstract}
-\end{minted}
+\end{lstlisting}
 
-The key words are enclosed in a \verb|{keyword}|
+The key words are enclosed in a \verb|keywords|
 environment. Use \verb|\sep| to separate keywords.
 
-\begin{minted}{latex}
+\begin{lstlisting}
 \begin{keywords}
   First keyword \sep 
   Second keyword \sep 
   Third keyword \sep 
   Fourth keyword
 \end{keywords}
-\end{minted}
+\end{lstlisting}
 
 At the end of front matter add \verb|\maketitle| command.
+
+\subsection{Various Marks in the Front Matter}
+
+The front matter becomes complicated due to various kinds
+of notes and marks to the title and author names. Marks in
+the title will be denoted by a star ($\star$) mark;
+footnotes are denoted by super scripted Arabic numerals,
+corresponding author by an Conformal asterisk (*) mark.
+
+\subsubsection{Title marks}
+
+Title mark can be entered by the command, \verb|\tnotemark[<num>]|
+and the corresponding text can be entered with the command
+\verb|\tnotetext[<num>]{<text>}|. An example will be:
+
+\begin{lstlisting}
+\title{A better way to format your document for CEUR-WS}
+
+\tnotemark[1]
+\tnotetext[1]{You can use this document as the template for preparing your
+  publication. We recommend using the latest version of the ceurart style.}
+\end{lstlisting}
+
+\verb|\tnotemark| and \verb|\tnotetext| can be anywhere in
+the front matter, but should be before \verb|\maketitle| command.
+
+\subsubsection{Author marks}
+
+Author names can have some kinds of marks and notes:
+\begin{itemize}
+\item footnote mark : \verb|\fnmark[<num>]|
+\item footnote text : \verb|\fntext[<num>]{<text>}|
+\item corresponding author mark : \verb|\cormark[<num>]|
+\item corresponding author text : \verb|\cortext[<num>]{<text>}|
+\end{itemize}
+
+\subsubsection{Other marks}
+
+At times, authors want footnotes which leave no marks in
+the author names. The note text shall be listed as part of
+the front matter notes. Class files provides
+\verb|\nonumnote| for this purpose. The usage
+\begin{lstlisting}
+\nonumnote{<text>}
+\end{lstlisting}
+and should be entered anywhere before the \verb|\maketitle|
+command for this to take effect. 
 
 \section{Sectioning Commands}
 
 Your work should use standard \LaTeX{} sectioning commands:
-\verb|section|, \verb|subsection|, \verb|subsubsection|, and
-\verb|paragraph|. They should be numbered; do not remove the numbering
-from the commands.
+\verb|\section|, \verb|\subsection|,
+\verb|\subsubsection|, and
+\verb|\paragraph|. They should be numbered; do not remove
+the numbering from the commands.
 
 Simulating a sectioning command by setting the first word or words of
 a paragraph in boldface or italicized text is not allowed.
@@ -429,10 +483,11 @@ reference should be included: title, year, volume, number, pages,
 article DOI, etc.
 
 The bibliography is included in your source document with these two
-commands, placed just before the \verb|\end{document}| command:
-\begin{minted}{latex}
+commands, placed just before the \verb|\end{document}|
+command:
+\begin{lstlisting}
 \bibliography{bibfile}
-\end{minted}
+\end{lstlisting}
 where ``\verb|bibfile|'' is the name, without the ``\verb|.bib|''
 suffix, of the Bib\TeX{} file.
 
@@ -475,17 +530,17 @@ section, which is placed just before the reference section in your
 document.
 
 This section has a special environment:
-\begin{minted}{latex}
+\begin{lstlisting}
 \begin{acknowledgments}
   These are different acknowledgments.
 \end{acknowledgments}
-\end{minted}
+\end{lstlisting}
 so that the information contained therein can be more easily collected
 during the article metadata extraction phase, and to ensure
 consistency in the spelling of the section heading.
 
 Authors should not prepare this section as a numbered or unnumbered
-{\verb|\section|}; please use the ``{\verb|acknowledgments|}'' environment.
+\verb|\section|; please use the ``\verb|acknowledgments|'' environment.
 
 \section{Appendices}
 
@@ -493,10 +548,10 @@ If your work needs an appendix, add it before the
 ``\verb|\end{document}|'' command at the conclusion of your source
 document.
 
-Start the appendix with the ``\verb|appendix|'' command:
-\begin{minted}{latex}
+Start the appendix with the ``\verb|\appendix|'' command:
+\begin{lstlisting}
 \appendix
-\end{minted}
+\end{lstlisting}
 and note that in the appendix, sections are lettered, not
 numbered. 
 
@@ -511,10 +566,6 @@ numbered.
   of Elsevier updated \LaTeX{} templates
   \url{https://www.ctan.org/tex-archive/macros/latex/contrib/els-cas-templates}.  
 \end{acknowledgments}
-
-%prevent overflowing URLs; suggested by Franck in
-% https://tex.stackexchange.com/questions/636114/how-can-i-prevent-urls-in-an-eprint-field-from-overflowing-in-the-references-i/636172#636172
-\Urlmuskip=0mu plus 1mu\relax
 
 %%
 %% Define the bibliography file to be used
